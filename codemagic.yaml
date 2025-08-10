@@ -7,6 +7,14 @@ workflows:
     cache:
       cache_default_paths: true
     scripts:
+      - name: Ensure Android platform exists
+        script: |
+          if [ ! -d "android" ]; then
+            echo "Android folder not found. Creating Flutter platform files..."
+            flutter create . --platforms=android
+          else
+            echo "Android folder found."
+          fi
       - name: Fetch dependencies
         script: flutter pub get
       - name: Build debug APK
