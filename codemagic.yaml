@@ -1,0 +1,22 @@
+workflows:
+  android_debug:
+    name: Android Debug APK
+    environment:
+      flutter: stable
+      java: 17
+    cache:
+      cache_default_paths: true
+    scripts:
+      - name: Fetch dependencies
+        script: flutter pub get
+      - name: Build debug APK
+        script: flutter build apk --debug
+    artifacts:
+      - build/app/outputs/flutter-apk/app-debug.apk
+    publishing:
+      email:
+        recipients:
+          - ${CM_EMAIL:-}
+        notify:
+          success: true
+          failure: true
